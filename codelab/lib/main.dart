@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _data = '';
+  List<String> fruits = <String>[];
 
   @override
   void initState() {
@@ -39,7 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void _fetch() async {
     var resp = await http.get('https://gist.githubusercontent.com/najeira/4ea8c4ca93570dfb1468fae5c8d6c616/raw/4d61f74e66e81b1336e965056a977fe7e906cf5a/fruits.json');
     setState(() {
-      _data = resp.body;
+      List<dynamic> list = json.decode(resp.body);
+      fruits = list.map((dynamic elem) {
+        return elem as String;
+      }).toList();
     });
   }
 
@@ -49,8 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: new Center(
-        child: new Text(_data),
+      body: new ListView(
+        children: fruits.map<Widget>((String fruit) {
+          return new ListTile(title: new Text(fruit));
+        }).toList(),
       ),
     );
   }
