@@ -61,10 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return new ListTile(
               title: new Text(fruit),
             trailing: new IconButton(
-                icon: new Icon(
-                  fav ? Icons.favorite : Icons.favorite_border,
-                  color: fav ? Colors.red : Colors.grey,
-                ),
+                icon: new FavIcon(fav: fav,),
                 onPressed: () {
 
                   bool fav = favorites[fruit] ?? false;
