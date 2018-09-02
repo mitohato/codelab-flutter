@@ -26,41 +26,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @String _data = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetch();
+  }
+
+  void _fetch() async {
+    var resp = await http.get('https://gist.githubusercontent.com/najeira/4ea8c4ca93570dfb1468fae5c8d6c616/raw/4d61f74e66e81b1336e965056a977fe7e906cf5a/fruits.json');
+    setState(() {
+      _data = resp.body;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: new ListView(
-        children: <Widget>[
-          new ListTile(title: new Text('A')),
-          new ListTile(title: new Text('B')),
-          new ListTile(title: new Text('C')),
-          new ListTile(title: new Text('D')),
-          new ListTile(title: new Text('E')),
-          new ListTile(title: new Text('F')),
-          new ListTile(title: new Text('G')),
-          new ListTile(title: new Text('H')),
-          new ListTile(title: new Text('I')),
-          new ListTile(title: new Text('J')),
-          new ListTile(title: new Text('K')),
-          new ListTile(title: new Text('L')),
-          new ListTile(title: new Text('M')),
-          new ListTile(title: new Text('N')),
-          new ListTile(title: new Text('O')),
-          new ListTile(title: new Text('P')),
-          new ListTile(title: new Text('Q')),
-          new ListTile(title: new Text('R')),
-          new ListTile(title: new Text('S')),
-          new ListTile(title: new Text('T')),
-          new ListTile(title: new Text('U')),
-          new ListTile(title: new Text('V')),
-          new ListTile(title: new Text('W')),
-          new ListTile(title: new Text('X')),
-          new ListTile(title: new Text('Y')),
-          new ListTile(title: new Text('Z')),
-        ],
+      body: new Center(
+        child: new Text(_data),
       ),
     );
   }
