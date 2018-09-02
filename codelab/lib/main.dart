@@ -26,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @String _data = '';
+  String _data = '';
 
   @override
   void initState() {
