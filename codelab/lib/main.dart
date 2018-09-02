@@ -79,3 +79,58 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class FavIcon extends StatefulWidget {
+  FavIcon({Key key, this.fav}) : super(key: key);
+
+  final bool fav;
+
+  @override
+  State<StatefulWidget> createState() {
+    return new FavIconState();
+  }
+}
+
+class FavIconState extends State<FavIcon>
+    with SingleTickerProviderStateMixin {
+
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new AnimationController(
+      value: 1.0,
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(FavIcon oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.fav != widget.fav) {
+      controller.forward(from: 0.0);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new ScaleTransition(
+      scale: new CurvedAnimation(
+        parent: controller,
+        curve: Curves.bounceOut,
+      ),
+      child: new Icon(
+        widget.fav ? Icons.favorite : Icons.favorite_border,
+        color: widget.fav ? Colors.red : Colors.grey,
+      ),
+    );
+  }
+}
