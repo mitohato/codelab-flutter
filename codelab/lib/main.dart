@@ -30,6 +30,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<String> fruits = <String>[];
 
+//  お気に入りかどうかの状態を管理するMap
+  Map<String, bool> favorites = <String, bool>{};
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +57,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new ListView(
         children: fruits.map<Widget>((String fruit) {
-          return new ListTile(title: new Text(fruit));
+          bool fav = favorites[fruit] ?? false;
+          return new ListTile(
+              title: new Text(fruit),
+            trailing: new IconButton(
+                icon: new Icon(
+                  fav ? Icons.favorite : Icons.favorite_border,
+                  color: fav ? Colors.red : Colors.grey,
+                ),
+                onPressed: () {
+
+                  bool fav = favorites[fruit] ?? false;
+                  setState(() {
+                    favorites[fruit] = !fav;
+                  });
+                }
+            ),
+          );
         }).toList(),
       ),
     );
