@@ -1,7 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'dart:convert';
 
 void main() => runApp(new MyApp());
 
@@ -40,7 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _fetch() async {
-    var resp = await http.get('https://gist.githubusercontent.com/najeira/4ea8c4ca93570dfb1468fae5c8d6c616/raw/4d61f74e66e81b1336e965056a977fe7e906cf5a/fruits.json');
+    var resp = await http.get(
+        'https://gist.githubusercontent.com/najeira/4ea8c4ca93570dfb1468fae5c8d6c616/raw/4d61f74e66e81b1336e965056a977fe7e906cf5a/fruits.json');
     setState(() {
       List<dynamic> list = json.decode(resp.body);
       fruits = list.map((dynamic elem) {
@@ -59,17 +60,17 @@ class _MyHomePageState extends State<MyHomePage> {
         children: fruits.map<Widget>((String fruit) {
           bool fav = favorites[fruit] ?? false;
           return new ListTile(
-              title: new Text(fruit),
+            title: new Text(fruit),
             trailing: new IconButton(
-                icon: new FavIcon(fav: fav,),
+                icon: new FavIcon(
+                  fav: fav,
+                ),
                 onPressed: () {
-
                   bool fav = favorites[fruit] ?? false;
                   setState(() {
                     favorites[fruit] = !fav;
                   });
-                }
-            ),
+                }),
           );
         }).toList(),
       ),
@@ -88,9 +89,7 @@ class FavIcon extends StatefulWidget {
   }
 }
 
-class FavIconState extends State<FavIcon>
-    with SingleTickerProviderStateMixin {
-
+class FavIconState extends State<FavIcon> with SingleTickerProviderStateMixin {
   AnimationController controller;
 
   @override
